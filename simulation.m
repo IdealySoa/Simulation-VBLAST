@@ -13,9 +13,6 @@ Reps = 50;     % Boucle de répétition par SNR
 SNRindB = 0:2:40;       % Valeur SNR
 M = 64;             % modulation : 4=QPSK, 16=16QAM, 64=64QAM
 
-
-
-
 %% Initialisation
 
 SNR = zeros(1,length(SNRindB));
@@ -54,7 +51,7 @@ for index = 1:length(SNRindB)
             r_mmse_osic((col_idx-1)*Nt+1:col_idx*Nt) = osic_mmse(rsic,H,sigma,M);
             
         end
-        r_zf_bin = (de2bi(r_zf,'left-msb'));
+        r_zf_bin = de2bi(r_zf,'left-msb');
         r_zf_sic_bin = de2bi(r_zf_osic,'left-msb');
         r_mmse_bin = de2bi(r_mmse,'left-msb');
         r_mmse_sic_bin = de2bi(r_mmse_osic,'left-msb');
@@ -82,4 +79,4 @@ semilogy(SNRindB,BER_mmse_osic,'-mpentagram');hold on;
 xlabel('SNR (dB)');ylabel('BER');
 legend('ZF','MMSE','ZF-OSIC','MMSE-OSIC');
 grid on;
-title('Performance VBLAST 4x4 , 64-QAM')
+title(strcat('Performance VBLAST : ',num2str(Nt),'x',num2str(Nr),' ,',num2str(M),'-QAM'))
